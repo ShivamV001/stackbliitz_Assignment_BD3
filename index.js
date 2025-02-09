@@ -67,6 +67,7 @@ function calculateQuantity(cartItems){
 }
 app.get('/cart/total-quantity',(req,res) => {
   let result = calculateQuantity(cart);
+  cart = result;
   res.json({"total items in cart": result});
 });
 
