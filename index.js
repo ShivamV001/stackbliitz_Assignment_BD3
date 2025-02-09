@@ -20,7 +20,8 @@ app.get('/cart/add',(req, res) => {
   let price = parseFloat(req.query.price);
   let quantity = parseInt(req.query.quantity);
   let result = addNewItems(cart,productId,name,price,quantity);
-  res.json({cartItems: result});
+  cart = result;
+  res.json({cartItems: cart});
 });
 
 function editQuantity(cartItems,productId,quantity){
@@ -35,21 +36,16 @@ app.get('/cart/edit',(req, res) => {
   let productId = parseInt(req.query.productId);
   let quantity = parseInt(req.query.quantity);
   let result = editQuantity(cart,productId,quantity);
-  res.json({cartItems: result});
+  cart = result;
+  res.json({cartItems: cart});
 });
 
 function deleteItem(cartItem,productId){
-  let obj = [];
-  for(let i=0; i<cartItem.length; i++){
-    if(cartItem[i].productId != productId){
-      obj.push(cartItem[i]);
-    }
-  }
-  return obj;
+ return cartItem.productId == productId;
 }
 app.get('/cart/delete',(req,res) => {
   let productId = parseInt(req.query.productId);
-  let result = deleteItem(cart,productId);
+  let result = cart.filter(cartItem => deleteItem(cartItem,productId));
   cart = result;
   res.json({cartItems: cart});
 });
