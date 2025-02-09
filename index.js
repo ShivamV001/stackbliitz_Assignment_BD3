@@ -18,7 +18,7 @@ app.get('/cart/add',(req, res) => {
   let productId =parseInt(req.query.productId);
   let name = req.query.name;
   let price = parseFloat(req.query.price);
-  let quantity = parseInt(req.query.quantity;)
+  let quantity = parseInt(req.query.quantity);
   let result = addNewItems(cart,productId,name,price,quantity);
   res.json({cartItems: result});
 });
